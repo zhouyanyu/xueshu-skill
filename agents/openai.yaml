@@ -1,0 +1,4 @@
+interface:
+  display_name: "xueshu · 学术精读"
+  short_description: "精读理论、逻辑与社科书籍，梳理概念、论证和证据，建立可回查的阅读 Wiki"
+  default_prompt: "使用 $xueshu 精读我提供的书籍，整理全部可读正文，建立可回查的章节笔记、概念索引和论证 Wiki。"
