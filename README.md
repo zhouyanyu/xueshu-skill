@@ -2,6 +2,18 @@
 
 面向理论著作、逻辑教材、历史研究与解释性社科读物的中文阅读技能。把书籍整理成可回查的原文、逐章笔记、概念与论证专题以及全书问题地图，支持持续阅读、难段解释和跨章研究。
 
+## 默认讲解深度
+
+章节笔记以能教会读者的文字讲解为主体，默认完成三层工作：
+
+1. **原书理解**：沿原书顺序展开具体内容、关键例子和重要转折，不以几句简述替代整章。
+2. **知识讲解**：解释概念含义与区别，补足前置知识，展开机制、计算或证明，说明每一步为什么成立。
+3. **延伸理解**：围绕核心问题主动换例子、改条件、作比较或分析应用边界，并实际展开推演。
+
+不需要额外输入“详细一点”才执行上述深度。用户明确要求速览或回忆卡时才压缩。完整原文和原书图片放在原文层，笔记只引用分析确需的内容；去掉引文、图和链接，正文仍应有解释价值。没有固定字数或图数，不以篇幅代替质量。
+
+教学例子与条件推演不要求联网，但会明确其假设和助手解释的性质；实际数据、历史事实及研究观点需要可靠来源。延伸不等于任意发挥，也不止于“现实很复杂”“尚待查证”。具体标准与自拟教学示例见 [讲解深度与延伸](references/depth.md)。
+
 ## 适用书籍与阅读模式
 
 | 模式 | 重点 | 示例 |
@@ -20,7 +32,7 @@
 ```powershell
 $taskSkillRoot = Join-Path $env:USERPROFILE '.codex\skills'
 New-Item -ItemType Directory -Path $taskSkillRoot -Force | Out-Null
-git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o ConnectTimeout=15' clone 'git@github.com:zhouyanyu/xueshu.git' (Join-Path $taskSkillRoot 'xueshu')
+git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o ConnectTimeout=15' clone 'git@github.com:zhouyanyu/xueshu-skill.git' (Join-Path $taskSkillRoot 'xueshu')
 ```
 
 若目录已存在，先检查其内容，不覆盖现有定制。SSH 克隆需要已配置可访问 GitHub 的密钥及正常主机校验。技能检查器仅依赖 Python 3.9+ 标准库；正文解析使用执行环境已有工具，扫描 PDF 可能需要 OCR。没有全文、扫描文本不可靠或公式丢失时会记录范围限制。
@@ -47,10 +59,10 @@ git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o 
 
 1. 确认书名、作者、译者、版本、实际目录及请求范围。
 2. 解析正文，保留有用注释与来源映射，建立稳定段落锚点。
-3. 按章和原小节精读，说明问题、概念、前提、推理、证据及结论条件。
-4. 汇总跨章概念与重要论证；根据实际需求增加图、表和公式。
+3. 完整读取并讲透一个真实章节，沿原书顺序解释问题、概念、前提、推理、证据及结论条件；围绕核心问题主动延伸。
+4. 按同样深度分批处理后续章节，汇总跨章概念与重要论证；根据实际需求增加图、表和公式。长书缩小批次，不压缩每章讲解追求覆盖速度。
 5. 更新阅读首页及覆盖记录，分别记录读者、提取、精读与综合进度。
-6. 检查链接、来源锚点和覆盖结构，再人工核对内容；交付首页和真实覆盖范围。
+6. 检查链接、来源锚点和覆盖结构，逐章回读确认概念、推理、主要内容和延伸已讲清，再登记完成；交付首页和真实覆盖范围。
 
 作者观点、引用材料、助手解释、外部研究和用户批注分层保留。隐含前提、教学例子和重建证明明确标识；不会把助手补充说成作者原话。外部查证围绕具体疑点进行，不能取代原书精读。
 
@@ -70,7 +82,7 @@ git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o 
 └── 阅读进度.md                按需
 ```
 
-每章保留原文定位、问题推进、重要概念与论证。简单概念集中索引，复杂概念和跨章论证再拆页。无固定图数；概念依赖、机制、比较、证据对应及形式证明使用合适表达。
+每章以“本章问题 → 主要内容与详细讲解 → 延伸理解 → 条件与争议 → 回顾与来源”组织，延伸也可就近展开。简单概念集中索引，复杂概念和跨章论证再拆页；读懂本章必需的解释不能全部外移到专题链接。无固定图数；概念依赖、机制、比较、证据对应及形式证明使用合适表达。
 
 中断会保存已完成范围和下一续接点；提取全文不等于精读全书。默认可用已核实后文解释当前章并单列后文来源；要求按读者进度阅读时过滤后文。
 
@@ -99,6 +111,7 @@ python .\scripts\check_wiki.py 'C:\你的书籍Wiki目录' --require-complete
 
 - [SKILL.md](SKILL.md)：默认行为、任务路由、证据规则与完成标准。
 - [精读模板](references/reading.md)：章节、概念、论证专题与全书地图。
+- [讲解深度与延伸](references/depth.md)：讲解步骤、主动延伸、自拟教学示例及内容验收。
 - [四种模式](references/modes.md)：理论、形式推理、历史研究及模型阅读细则。
 - [原文定位](references/sources.md)：版本、格式提取、稳定锚点与来源映射。
 - [Wiki维护](references/wiki.md)：目录、覆盖记录及校验。
@@ -108,3 +121,5 @@ python .\scripts\check_wiki.py 'C:\你的书籍Wiki目录' --require-complete
 ## 后续更新
 
 作者修改本 skill 时同步更新本仓库和必要的 README，通过 PowerShell 使用 SSH 上传；这是随修改执行的约定，不是定时任务或后台监听。仓库只发布技能与使用说明，不包含用户书籍、正文、笔记、进度、Wiki 或凭据。其他使用者的定制不会自动推送至作者仓库。
+
+发布仓库为 [zhouyanyu/xueshu-skill](https://github.com/zhouyanyu/xueshu-skill)，安装目录及调用名仍为 `xueshu`。

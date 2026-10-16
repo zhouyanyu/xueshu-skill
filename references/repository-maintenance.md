@@ -2,10 +2,10 @@
 
 ## 授权与范围
 
-用户要求将 xueshu 发布到 `git@github.com:zhouyanyu/xueshu.git`，后续修改 skill 时同步更新仓库及必要的 README，通过 PowerShell 使用 SSH 上传。
+用户要求将 xueshu 发布到 `git@github.com:zhouyanyu/xueshu-skill.git`，后续修改 skill 时同步更新仓库及必要的 README，通过 PowerShell 使用 SSH 上传。仓库已由 `xueshu` 更名为 `xueshu-skill`，旧 checkout 同步前先核对并更新 origin。
 
-- SSH：`git@github.com:zhouyanyu/xueshu.git`
-- 浏览入口：`https://github.com/zhouyanyu/xueshu`
+- SSH：`git@github.com:zhouyanyu/xueshu-skill.git`
+- 浏览入口：`https://github.com/zhouyanyu/xueshu-skill`
 - 发布：`SKILL.md`、`agents/`、`references/`、`scripts/`、README 和必要的验证文件或发布配置。
 - 排除：原书、提取正文、个人笔记、阅读进度、Wiki、私钥凭据、缓存和临时文件。
 
@@ -16,7 +16,7 @@
 使用 PowerShell 调用 Git，远端保持上述 SSH 地址。优先 Windows 自带 OpenSSH，保留正常主机密钥校验：
 
 ```powershell
-git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o ConnectTimeout=15' ls-remote --symref 'git@github.com:zhouyanyu/xueshu.git' HEAD
+git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o ConnectTimeout=15' ls-remote --symref 'git@github.com:zhouyanyu/xueshu-skill.git' HEAD
 ```
 
 可为本 checkout 设置 `core.sshCommand`，不改全局配置。需要诊断代理时可用 `ssh-add -l` 查看公开指纹，不读取私钥。主机密钥冲突、认证失败、连接超时或仓库权限不足时保留工作，报告具体阻碍；不关闭主机校验、不改用未经授权的发布方式。
