@@ -21,6 +21,8 @@ git -c 'core.sshCommand=C:/Windows/System32/OpenSSH/ssh.exe -o BatchMode=yes -o 
 
 可为本 checkout 设置 `core.sshCommand`，不改全局配置。需要诊断代理时可用 `ssh-add -l` 查看公开指纹，不读取私钥。主机密钥冲突、认证失败、连接超时或仓库权限不足时保留工作，报告具体阻碍；不关闭主机校验、不改用未经授权的发布方式。
 
+如果推送提示 denied to 某个其他账号，检查 github.com 主机配置是否通过 `IdentityFile` 和 `IdentitiesOnly` 固定了该账号密钥；代理中有原账号密钥不代表实际使用了它。已确认存在可访问本仓库的原账号密钥时，仅为本 checkout 的 `core.sshCommand` 增加 `-o IdentitiesOnly=yes -i <对应密钥路径>`。保留其他账号配置和代理密钥，不读取密钥内容，不把个人密钥路径写入公共仓库。
+
 ## 每次更新
 
 1. 检查安装目录、交付副本和可用 checkout，确认此次变更及他人变更。优先复用 checkout，否则在当前任务工作目录克隆；过去聊天的路径不保证存在。
